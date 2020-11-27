@@ -1,6 +1,6 @@
 # Wide Eyes Bundle
 Wide Eyes integration for Symfony.  
-Documentation of the API can be found here: http://example.com/api.
+Documentation of the API can be found here: https://wideeyes.ai/.
 
 Installation
 ------------
