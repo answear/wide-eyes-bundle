@@ -9,7 +9,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    private const API_URL = 'https://pro.api-mirror.wide-eyes.it';
+    private const API_URL = 'https://api.wide-eyes.it';
     private const CONNECTION_TIMEOUT = 10;
     private const REQUEST_TIMEOUT = 1;
 
