@@ -26,7 +26,8 @@ class AnswearWideEyesExtension extends Extension
         $definition = $container->getDefinition(ConfigProvider::class);
         $definition->setArguments(
             [
-                $config['apiUrl'],
+                $config['similarApiUrl'],
+                $config['searchByImageApiUrl'],
                 $config['publicKey'],
                 $config['requestTimeout'],
                 $config['connectionTimeout'],

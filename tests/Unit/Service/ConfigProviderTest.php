@@ -15,7 +15,8 @@ class ConfigProviderTest extends TestCase
     public function returnsCorrectRequestHeaders(): void
     {
         $configProvider = new ConfigProvider(
-            'https://example.org/',
+            'https://similar-example.org/',
+            'https://search-by-image-example.org/',
             'public_key',
             1.0,
             1.0

@@ -6,18 +6,21 @@ namespace Answear\WideEyesBundle\Service;
 
 class ConfigProvider
 {
-    private string $apiUrl;
+    private string $similarApiUrl;
+    private string $searchByImageApiUrl;
     private string $publicKey;
     private float $requestTimeout;
     private float $connectionTimeout;
 
     public function __construct(
-        string $apiUrl,
+        string $similarApiUrl,
+        string $searchByImageApiUrl,
         string $publicKey,
         float $requestTimeout,
         float $connectionTimeout
     ) {
-        $this->apiUrl = $apiUrl;
+        $this->similarApiUrl = $similarApiUrl;
+        $this->searchByImageApiUrl = $searchByImageApiUrl;
         $this->publicKey = $publicKey;
         $this->requestTimeout = $requestTimeout;
         $this->connectionTimeout = $connectionTimeout;
@@ -31,9 +34,14 @@ class ConfigProvider
         ];
     }
 
-    public function getApiUrl(): string
+    public function getSimilarApiUrl(): string
     {
-        return $this->apiUrl;
+        return $this->similarApiUrl;
+    }
+
+    public function getSearchByImageApiUrl(): string
+    {
+        return $this->searchByImageApiUrl;
     }
 
     public function getPublicKey(): string
