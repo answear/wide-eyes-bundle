@@ -29,7 +29,8 @@ class AnswearWideEyesExtension extends Extension
                 $config['similarApiUrl'],
                 $config['searchByImageApiUrl'],
                 $config['publicKey'],
-                $config['requestTimeout'],
+                $config['similarRequestTimeout'],
+                $config['searchByImageRequestTimeout'],
                 $config['connectionTimeout'],
             ]
         );

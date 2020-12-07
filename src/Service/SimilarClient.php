@@ -17,7 +17,7 @@ class SimilarClient extends AbstractClient
         $this->guzzle = $client ?? new Client(
                 [
                     'base_uri' => $this->configProvider->getSimilarApiUrl(),
-                    'timeout' => $this->configProvider->getRequestTimeout(),
+                    'timeout' => $this->configProvider->getSimilarRequestTimeout(),
                 ]
             );
     }

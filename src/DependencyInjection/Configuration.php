@@ -12,7 +12,8 @@ class Configuration implements ConfigurationInterface
     private const SIMILAR_API_URL = 'https://pro.api-mirror.wide-eyes.it';
     private const SEARCH_BY_IMAGE_API_URL = 'https://api.wide-eyes.it';
     private const CONNECTION_TIMEOUT = 10;
-    private const REQUEST_TIMEOUT = 1;
+    private const SIMILAR_REQUEST_TIMEOUT = 1;
+    private const SEARCH_BY_IMAGE_REQUEST_TIMEOUT = 5;
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
@@ -24,7 +25,8 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('searchByImageApiUrl')->defaultValue(self::SEARCH_BY_IMAGE_API_URL)->end()
             ->scalarNode('publicKey')->cannotBeEmpty()->end()
             ->floatNode('connectionTimeout')->defaultValue(self::CONNECTION_TIMEOUT)->end()
-            ->floatNode('requestTimeout')->defaultValue(self::REQUEST_TIMEOUT)->end()
+            ->floatNode('similarRequestTimeout')->defaultValue(self::SIMILAR_REQUEST_TIMEOUT)->end()
+            ->floatNode('searchByImageRequestTimeout')->defaultValue(self::SEARCH_BY_IMAGE_REQUEST_TIMEOUT)->end()
             ->end();
 
         return $treeBuilder;

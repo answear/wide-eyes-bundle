@@ -9,20 +9,23 @@ class ConfigProvider
     private string $similarApiUrl;
     private string $searchByImageApiUrl;
     private string $publicKey;
-    private float $requestTimeout;
+    private float $similarRequestTimeout;
+    private float $searchByImageRequestTimeout;
     private float $connectionTimeout;
 
     public function __construct(
         string $similarApiUrl,
         string $searchByImageApiUrl,
         string $publicKey,
-        float $requestTimeout,
+        float $similarRequestTimeout,
+        float $searchByImageRequestTimeout,
         float $connectionTimeout
     ) {
         $this->similarApiUrl = $similarApiUrl;
         $this->searchByImageApiUrl = $searchByImageApiUrl;
         $this->publicKey = $publicKey;
-        $this->requestTimeout = $requestTimeout;
+        $this->similarRequestTimeout = $similarRequestTimeout;
+        $this->searchByImageRequestTimeout = $searchByImageRequestTimeout;
         $this->connectionTimeout = $connectionTimeout;
     }
 
@@ -49,9 +52,14 @@ class ConfigProvider
         return $this->publicKey;
     }
 
-    public function getRequestTimeout(): float
+    public function getSimilarRequestTimeout(): float
     {
-        return $this->requestTimeout;
+        return $this->similarRequestTimeout;
+    }
+
+    public function getSearchByImageRequestTimeout(): float
+    {
+        return $this->searchByImageRequestTimeout;
     }
 
     public function getConnectionTimeout(): float

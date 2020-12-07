@@ -32,6 +32,7 @@ abstract class AbstractClientTest extends TestCase
             self::API_URL,
             self::API_KEY,
             1.0,
+            5.0,
             1.0
         );
     }

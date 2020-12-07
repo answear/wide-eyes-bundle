@@ -19,6 +19,7 @@ class ConfigProviderTest extends TestCase
             'https://search-by-image-example.org/',
             'public_key',
             1.0,
+            5.0,
             1.0
         );
 

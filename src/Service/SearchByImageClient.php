@@ -17,7 +17,7 @@ class SearchByImageClient extends AbstractClient
         $this->guzzle = $client ?? new Client(
                 [
                     'base_uri' => $this->configProvider->getSearchByImageApiUrl(),
-                    'timeout' => $this->configProvider->getRequestTimeout(),
+                    'timeout' => $this->configProvider->getSearchByImageRequestTimeout(),
                 ]
             );
     }
