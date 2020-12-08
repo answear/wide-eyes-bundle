@@ -13,13 +13,15 @@ class SearchByImageClient extends AbstractClient
 {
     public function __construct(ConfigProvider $configProvider, ClientInterface $client = null)
     {
-        $this->configProvider = $configProvider;
-        $this->guzzle = $client ?? new Client(
+        parent::__construct(
+            $configProvider,
+            $client ?? new Client(
                 [
                     'base_uri' => $this->configProvider->getSearchByImageApiUrl(),
                     'timeout' => $this->configProvider->getSearchByImageRequestTimeout(),
                 ]
-            );
+            )
+        );
     }
 
     public function detectAndFeatures(string $image): DetectAndFeaturesResponse

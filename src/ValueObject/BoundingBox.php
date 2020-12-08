@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Answear\WideEyesBundle\ValueObject;
 
-class Bbox
+class BoundingBox
 {
     private float $x1;
     private float $y1;
@@ -19,7 +19,7 @@ class Bbox
         $this->y2 = $y2;
     }
 
-    public static function fromArray(array $bboxResponse): Bbox
+    public static function fromArray(array $bboxResponse): BoundingBox
     {
         return new self(
             (float) $bboxResponse['x1'],

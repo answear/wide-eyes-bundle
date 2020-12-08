@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Answear\WideEyesBundle\Tests\Unit\ValueObject;
 
-use Answear\WideEyesBundle\ValueObject\Bbox;
+use Answear\WideEyesBundle\ValueObject\BoundingBox;
 use Monolog\Test\TestCase;
 
-class BboxTest extends TestCase
+class BoundingBoxTest extends TestCase
 {
     /**
      * @test
@@ -22,8 +22,8 @@ class BboxTest extends TestCase
         ];
 
         self::assertEquals(
-            new Bbox(10, 20, 30, 40),
-            Bbox::fromArray($bbox)
+            new BoundingBox(10, 20, 30, 40),
+            BoundingBox::fromArray($bbox)
         );
     }
 
@@ -42,6 +42,6 @@ class BboxTest extends TestCase
         $this->expectError();
         $this->expectErrorMessageMatches('#^Undefined index#');
 
-        Bbox::fromArray($bbox);
+        BoundingBox::fromArray($bbox);
     }
 }

@@ -13,13 +13,15 @@ class SimilarClient extends AbstractClient
 {
     public function __construct(ConfigProvider $configProvider, ClientInterface $client = null)
     {
-        $this->configProvider = $configProvider;
-        $this->guzzle = $client ?? new Client(
+        parent::__construct(
+            $configProvider,
+            $client ?? new Client(
                 [
                     'base_uri' => $this->configProvider->getSimilarApiUrl(),
                     'timeout' => $this->configProvider->getSimilarRequestTimeout(),
                 ]
-            );
+            )
+        );
     }
 
     public function getSimilar(string $uid, string $countyCode): GetSimilarResponse

@@ -19,6 +19,12 @@ abstract class AbstractClient
     protected ConfigProvider $configProvider;
     protected ?ClientInterface $guzzle;
 
+    public function __construct(ConfigProvider $configProvider, ClientInterface $client)
+    {
+        $this->configProvider = $configProvider;
+        $this->guzzle = $client;
+    }
+
     protected function request(string $endpoint, Request $request): array
     {
         try {

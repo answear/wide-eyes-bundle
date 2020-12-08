@@ -8,14 +8,16 @@ class Detection
 {
     private string $label;
     private string $featureId;
-    private Bbox $box;
+    private ?string $gender;
+    private BoundingBox $box;
     private Point $point;
 
-    public function __construct(string $label, string $featureId, Bbox $box, Point $point)
+    public function __construct(string $label, string $featureId, ?string $gender, BoundingBox $box, Point $point)
     {
         $this->label = $label;
         $this->featureId = $featureId;
         $this->box = $box;
+        $this->gender = $gender;
         $this->point = $point;
     }
 
@@ -24,7 +26,8 @@ class Detection
         return new self(
             $detectionResult['label'],
             $detectionResult['featureId'],
-            Bbox::fromArray($detectionResult['bbox']),
+            $detectionResult['gender'] ?? null,
+            BoundingBox::fromArray($detectionResult['bbox']),
             Point::fromArray($detectionResult['point'])
         );
     }
@@ -39,7 +42,12 @@ class Detection
         return $this->featureId;
     }
 
-    public function getBox(): Bbox
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function getBox(): BoundingBox
     {
         return $this->box;
     }
