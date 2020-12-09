@@ -11,14 +11,14 @@ use GuzzleHttp\ClientInterface;
 
 class SimilarClient extends AbstractClient
 {
-    public function __construct(ConfigProvider $configProvider, ClientInterface $client = null)
+    public function __construct(ConfigProvider $configProvider, ?ClientInterface $client = null)
     {
         parent::__construct(
             $configProvider,
             $client ?? new Client(
                 [
-                    'base_uri' => $this->configProvider->getSimilarApiUrl(),
-                    'timeout' => $this->configProvider->getSimilarRequestTimeout(),
+                    'base_uri' => $configProvider->getSimilarApiUrl(),
+                    'timeout' => $configProvider->getSimilarRequestTimeout(),
                 ]
             )
         );

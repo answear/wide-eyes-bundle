@@ -17,7 +17,7 @@ abstract class AbstractClient
     protected const DETECT_AND_FEATURES_ENDPOINT = 'v4/DetectAndFeatures';
 
     protected ConfigProvider $configProvider;
-    protected ?ClientInterface $guzzle;
+    protected ClientInterface $guzzle;
 
     public function __construct(ConfigProvider $configProvider, ClientInterface $client)
     {

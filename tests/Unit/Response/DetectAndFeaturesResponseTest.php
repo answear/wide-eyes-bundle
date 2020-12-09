@@ -78,6 +78,49 @@ class DetectAndFeaturesResponseTest extends TestCase
     /**
      * @test
      */
+    public function malformedResponseWithNotCompleteDetections(): void
+    {
+        $responseData = [
+            'detections' => [
+                [
+                    'label' => 'shorts',
+                    'featureId' => 'aaaabbbb=',
+                    'gender' => 'female',
+                    'bbox' => [
+                        'x1' => 10,
+                        'x2' => 30,
+                        'y2' => 40,
+                    ],
+                    'point' => [
+                        'x' => 20,
+                        'y' => 30,
+                    ],
+                ],
+                [
+                    'label' => 't-shirt',
+                    'featureId' => 'ccccdddd=',
+                    'bbox' => [
+                        'x1' => 50,
+                        'y1' => 60,
+                        'x2' => 70,
+                        'y2' => 80,
+                    ],
+                    'point' => [
+                        'x' => 60,
+                        'y' => 70,
+                    ],
+                ],
+            ],
+        ];
+
+        $this->expectException(MalformedResponse::class);
+        $this->expectExceptionMessage('Undefined index: y1');
+        DetectAndFeaturesResponse::fromArray($responseData);
+    }
+
+    /**
+     * @test
+     */
     public function malformedResponseWithoutDetections(): void
     {
         $responseData = [

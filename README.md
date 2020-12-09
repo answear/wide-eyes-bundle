@@ -36,7 +36,7 @@ use Answear\WideEyesBundle\Service\SimilarClient;
 $similarResponse = $similarClient->getSimilar('uid', 'country');
 ```
 
-Your agruments are: `uid` - your unique id for product and `country` - country for witch products your asking.
+Your agruments are: `uid` - your unique id for product and `country` - country for which products your asking.
 In result you're getting `SimilarResponse` that has `getUids` method - with similar uids returned by api.
 
 ### Search by image
@@ -45,7 +45,7 @@ For search by image use `SearchByImageClient`.
 
 #### Detect and features
 
-To detect products on image and find theirs features use `detectAndFreatures`
+To detect products on image and find theirs features use `detectAndFeatures`
 
 ```php
 use Answear\WideEyesBundle\Service\SearchByImageClient;
@@ -53,7 +53,7 @@ use Answear\WideEyesBundle\Service\SearchByImageClient;
 $detectAndFeturesResponse = $searchByImageClient->getSimilar('url');
 ```
 
-Your agrument is: `url` - url to the image on witch you want to detect products and features.
+Your agrument is: `url` - url to the image on which you want to detect products and features.
 In result you're getting `DetectAndFeaturesResponse` that contains all detection returned by api.
 
 

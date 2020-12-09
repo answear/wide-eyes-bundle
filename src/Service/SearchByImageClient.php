@@ -11,14 +11,14 @@ use GuzzleHttp\ClientInterface;
 
 class SearchByImageClient extends AbstractClient
 {
-    public function __construct(ConfigProvider $configProvider, ClientInterface $client = null)
+    public function __construct(ConfigProvider $configProvider, ?ClientInterface $client = null)
     {
         parent::__construct(
             $configProvider,
             $client ?? new Client(
                 [
-                    'base_uri' => $this->configProvider->getSearchByImageApiUrl(),
-                    'timeout' => $this->configProvider->getSearchByImageRequestTimeout(),
+                    'base_uri' => $configProvider->getSearchByImageApiUrl(),
+                    'timeout' => $configProvider->getSearchByImageRequestTimeout(),
                 ]
             )
         );

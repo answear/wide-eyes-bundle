@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Answear\WideEyesBundle\ValueObject;
 
+use Webmozart\Assert\Assert;
+
 class Detection
 {
     private string $label;
@@ -23,6 +25,11 @@ class Detection
 
     public static function fromArray(array $detectionResult): Detection
     {
+        Assert::notNull($detectionResult['label']);
+        Assert::notNull($detectionResult['featureId']);
+        Assert::notNull($detectionResult['bbox']);
+        Assert::notNull($detectionResult['point']);
+
         return new self(
             $detectionResult['label'],
             $detectionResult['featureId'],
