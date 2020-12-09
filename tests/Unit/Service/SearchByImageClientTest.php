@@ -102,7 +102,6 @@ class SearchByImageClientTest extends AbstractClientTest
         $this->guzzleHandler->append(new Response(500, [], '{}'));
 
         $this->expectException(ServiceUnavailable::class);
-        $this->expectExceptionMessage('Server error: `POST v4/DetectAndFeatures` resulted in a `500 Internal Server Error');
 
         $this->client->detectAndFeatures(self::IMAGE_PATH);
     }

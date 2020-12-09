@@ -100,7 +100,6 @@ class SimilarClientTest extends AbstractClientTest
         $this->guzzleHandler->append(new Response(500, [], '{}'));
 
         $this->expectException(ServiceUnavailable::class);
-        $this->expectExceptionMessage('Server error: `POST v4/SearchById` resulted in a `500 Internal Server Error');
 
         $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
     }

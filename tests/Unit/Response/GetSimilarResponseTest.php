@@ -6,7 +6,7 @@ namespace Answear\WideEyesBundle\Tests\Unit\Response;
 
 use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Response\GetSimilarResponse;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class GetSimilarResponseTest extends TestCase
 {
