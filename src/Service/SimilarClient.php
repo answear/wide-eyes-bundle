@@ -11,6 +11,8 @@ use GuzzleHttp\ClientInterface;
 
 class SimilarClient extends AbstractClient
 {
+    private const SEARCH_BY_ID_ENDPOINT = 'v4/SearchById';
+
     public function __construct(ConfigProvider $configProvider, ?ClientInterface $client = null)
     {
         parent::__construct(

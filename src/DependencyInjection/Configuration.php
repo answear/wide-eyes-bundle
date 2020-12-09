@@ -21,12 +21,20 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-            ->scalarNode('similarApiUrl')->defaultValue(self::SIMILAR_API_URL)->end()
-            ->scalarNode('searchByImageApiUrl')->defaultValue(self::SEARCH_BY_IMAGE_API_URL)->end()
-            ->scalarNode('publicKey')->cannotBeEmpty()->end()
-            ->floatNode('connectionTimeout')->defaultValue(self::CONNECTION_TIMEOUT)->end()
-            ->floatNode('similarRequestTimeout')->defaultValue(self::SIMILAR_REQUEST_TIMEOUT)->end()
-            ->floatNode('searchByImageRequestTimeout')->defaultValue(self::SEARCH_BY_IMAGE_REQUEST_TIMEOUT)->end()
+                ->scalarNode('publicKey')->cannotBeEmpty()->end()
+                ->floatNode('connectionTimeout')->defaultValue(self::CONNECTION_TIMEOUT)->end()
+                ->arrayNode('similar')->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('apiUrl')->defaultValue(self::SIMILAR_API_URL)->end()
+                        ->floatNode('requestTimeout')->defaultValue(self::SIMILAR_REQUEST_TIMEOUT)->end()
+                    ->end()
+                ->end()
+                ->arrayNode('searchByImage')->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('apiUrl')->defaultValue(self::SEARCH_BY_IMAGE_API_URL)->end()
+                        ->floatNode('requestTimeout')->defaultValue(self::SEARCH_BY_IMAGE_REQUEST_TIMEOUT)->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
