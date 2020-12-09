@@ -6,42 +6,21 @@ namespace Answear\WideEyesBundle\Tests\Unit\Service;
 
 use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Exception\ServiceUnavailable;
-use Answear\WideEyesBundle\Service\Client;
-use Answear\WideEyesBundle\Service\ConfigProvider;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
+use Answear\WideEyesBundle\Service\SimilarClient;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 
-class ClientTest extends TestCase
+class SimilarClientTest extends AbstractClientTest
 {
-    /**
-     * @see http://docs.guzzlephp.org/en/stable/testing.html#history-middleware
-     */
-    private $guzzleHistory;
-    private MockHandler $guzzleHandler;
-
-    private const API_URL = 'https://wideeyes-fake-api.test/';
-    private const API_KEY = 'api-key';
     private const UID = 'uid1';
     private const COUNTRY_CODE = 'code';
 
-    private Client $client;
+    private SimilarClient $client;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $configProvider = new ConfigProvider(
-            self::API_URL,
-            self::API_KEY,
-            1.0,
-            1.0
-        );
-
-        $this->client = new Client($configProvider, $this->setupGuzzle());
+        $this->client = new SimilarClient($this->configProvider, $this->setupGuzzle());
     }
 
     /**
@@ -156,17 +135,5 @@ class ClientTest extends TestCase
                 ],
             ]
         );
-    }
-
-    private function setupGuzzle(): ClientInterface
-    {
-        $this->guzzleHandler = new MockHandler();
-        $handlerStack = HandlerStack::create($this->guzzleHandler);
-
-        $this->guzzleHistory = [];
-        $history = Middleware::history($this->guzzleHistory);
-        $handlerStack->push($history);
-
-        return new \GuzzleHttp\Client(['handler' => $handlerStack]);
     }
 }

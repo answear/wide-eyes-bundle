@@ -5,4 +5,5 @@ services:
         public: false
 
     Answear\WideEyesBundle\Service\ConfigProvider: ~
-    Answear\WideEyesBundle\Service\Client: ~
+    Answear\WideEyesBundle\Service\SimilarClient: ~
+    Answear\WideEyesBundle\Service\SearchByImageClient: ~

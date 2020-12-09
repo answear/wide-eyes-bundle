@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Answear\WideEyesBundle\Service;
+
+use Answear\WideEyesBundle\Request\DetectAndFeaturesRequest;
+use Answear\WideEyesBundle\Response\DetectAndFeaturesResponse;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+
+class SearchByImageClient extends AbstractClient
+{
+    public function __construct(ConfigProvider $configProvider, ?ClientInterface $client = null)
+    {
+        parent::__construct(
+            $configProvider,
+            $client ?? new Client(
+                [
+                    'base_uri' => $configProvider->getSearchByImageApiUrl(),
+                    'timeout' => $configProvider->getSearchByImageRequestTimeout(),
+                ]
+            )
+        );
+    }
+
+    public function detectAndFeatures(string $image): DetectAndFeaturesResponse
+    {
+        return DetectAndFeaturesResponse::fromArray(
+            $this->request(self::DETECT_AND_FEATURES_ENDPOINT, new DetectAndFeaturesRequest($image))
+        );
+    }
+}

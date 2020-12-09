@@ -6,40 +6,26 @@ namespace Answear\WideEyesBundle\Service;
 
 use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Exception\ServiceUnavailable;
-use Answear\WideEyesBundle\Request\GetSimilarRequest;
 use Answear\WideEyesBundle\Request\Request;
-use Answear\WideEyesBundle\Response\GetSimilarResponse;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Webmozart\Assert\Assert;
 
-class Client
+abstract class AbstractClient
 {
-    private const SEARCH_BY_ID_ENDPOINT = 'v4/SearchById';
+    protected const SEARCH_BY_ID_ENDPOINT = 'v4/SearchById';
+    protected const DETECT_AND_FEATURES_ENDPOINT = 'v4/DetectAndFeatures';
 
-    private ConfigProvider $configProvider;
-    private ?ClientInterface $guzzle;
+    protected ConfigProvider $configProvider;
+    protected ClientInterface $guzzle;
 
-    public function __construct(ConfigProvider $configProvider, ClientInterface $client = null)
+    public function __construct(ConfigProvider $configProvider, ClientInterface $client)
     {
         $this->configProvider = $configProvider;
-        $this->guzzle = $client ?? new \GuzzleHttp\Client(
-            [
-                'base_uri' => $this->configProvider->getApiUrl(),
-                'timeout' => $this->configProvider->getRequestTimeout(),
-            ]
-        );
+        $this->guzzle = $client;
     }
 
-    public function getSimilar(string $uid, string $countyCode): GetSimilarResponse
-    {
-        return GetSimilarResponse::fromArray(
-            $this->request(self::SEARCH_BY_ID_ENDPOINT, new GetSimilarRequest($uid, $countyCode)),
-            $uid
-        );
-    }
-
-    private function request(string $endpoint, Request $request): array
+    protected function request(string $endpoint, Request $request): array
     {
         try {
             $response = $this->guzzle->request(
