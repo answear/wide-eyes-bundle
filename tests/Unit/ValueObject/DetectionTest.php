@@ -7,7 +7,7 @@ namespace Answear\WideEyesBundle\Tests\Unit\ValueObject;
 use Answear\WideEyesBundle\ValueObject\BoundingBox;
 use Answear\WideEyesBundle\ValueObject\Detection;
 use Answear\WideEyesBundle\ValueObject\Point;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class DetectionTest extends TestCase
 {

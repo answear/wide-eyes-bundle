@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Answear\WideEyesBundle\Tests\Unit\ValueObject;
 
 use Answear\WideEyesBundle\ValueObject\BoundingBox;
-use Monolog\Test\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BoundingBoxTest extends TestCase
 {
