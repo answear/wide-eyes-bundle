@@ -11,7 +11,7 @@ class SearchByFeatureRequest implements Request
     private ?string $gender;
     private ?string $country;
 
-    public function __construct(string $featureId, string $label, string $gender = null, string $country = null)
+    public function __construct(string $featureId, string $label, ?string $gender = null, ?string $country = null)
     {
         $this->featureId = $featureId;
         $this->label = $label;
