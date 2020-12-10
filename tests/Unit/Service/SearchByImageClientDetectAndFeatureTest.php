@@ -9,7 +9,7 @@ use Answear\WideEyesBundle\Exception\ServiceUnavailable;
 use Answear\WideEyesBundle\Service\SearchByImageClient;
 use GuzzleHttp\Psr7\Response;
 
-class SearchByImageClientTest extends AbstractClientTest
+class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
 {
     private const IMAGE_PATH = 'path';
 
@@ -58,7 +58,7 @@ class SearchByImageClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function responeWithWrongPropertiesInDetecions(): void
+    public function responseWithWrongPropertiesInDetections(): void
     {
         $this->guzzleHandler->append(new Response(200, [], $this->prepareNotProperResponse()));
 

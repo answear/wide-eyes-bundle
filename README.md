@@ -56,6 +56,23 @@ $detectAndFeturesResponse = $searchByImageClient->getSimilar('url');
 Your agrument is: `url` - url to the image on which you want to detect products and features.
 In result you're getting `DetectAndFeaturesResponse` that contains all detection returned by api.
 
+#### Search by feature
+
+To search products with previously found feature use `searchByFeature`
+
+```php
+use Answear\WideEyesBundle\Service\SearchByImageClient;
+
+$detectAndFeturesResponse = $searchByImageClient->searchByFeature('featureId', 'label', 'gender', 'filters');
+```
+
+Your agruments are:
+ * `featureId` - featureId you got form DetectAndFeatures
+ * `label` - label you got form DetectAndFeatures
+ * `gender` - gender you got from DetectAndFeatures (optional)
+ * `filters` - result filters (optional)
+
+In result you're getting `SearchByFeatureResponse` that contains all found products uids meeting your criteria.
 
 Final notes
 ------------

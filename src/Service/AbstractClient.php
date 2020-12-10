@@ -13,9 +13,6 @@ use Webmozart\Assert\Assert;
 
 abstract class AbstractClient
 {
-    protected const SEARCH_BY_ID_ENDPOINT = 'v4/SearchById';
-    protected const DETECT_AND_FEATURES_ENDPOINT = 'v4/DetectAndFeatures';
-
     protected ConfigProvider $configProvider;
     protected ClientInterface $guzzle;
 
