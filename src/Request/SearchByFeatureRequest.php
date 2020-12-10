@@ -9,34 +9,27 @@ class SearchByFeatureRequest implements Request
     private string $featureId;
     private string $label;
     private ?string $gender;
-    private ?string $country;
+    private ?string $filters;
 
-    public function __construct(string $featureId, string $label, ?string $gender = null, ?string $country = null)
+    public function __construct(string $featureId, string $label, ?string $gender = null, ?string $filters = null)
     {
         $this->featureId = $featureId;
         $this->label = $label;
         $this->gender = $gender;
-        $this->country = $country;
+        $this->filters = $filters;
     }
 
     public function toJson(): string
     {
-        $toEncode = [
-            'featureId' => $this->featureId,
-            'label' => $this->label,
-            'gender' => $this->gender,
-            'filters' => $this->getCountryFilter(),
-        ];
-
-        return json_encode(array_filter($toEncode));
-    }
-
-    private function getCountryFilter(): ?string
-    {
-        if (null === $this->country) {
-            return null;
-        }
-
-        return $this->country . '.inStock == true';
+        return json_encode(
+            array_filter(
+                [
+                    'featureId' => $this->featureId,
+                    'label' => $this->label,
+                    'gender' => $this->gender,
+                    'filters' => $this->filters,
+                ]
+            )
+        );
     }
 }

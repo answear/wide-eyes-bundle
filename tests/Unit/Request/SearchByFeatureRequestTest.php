@@ -27,7 +27,7 @@ class SearchByFeatureRequestTest extends TestCase
      */
     public function requestWithGenderAndCountryIsCorrect(): void
     {
-        $request = new SearchByFeatureRequest('featureId', 'label', 'female', 'pl');
+        $request = new SearchByFeatureRequest('featureId', 'label', 'female', 'pl.inStock == true');
 
         self::assertSame(
             '{"featureId":"featureId","label":"label","gender":"female","filters":"pl.inStock == true"}',

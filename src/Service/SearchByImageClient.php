@@ -40,10 +40,10 @@ class SearchByImageClient extends AbstractClient
         string $featureId,
         string $label,
         ?string $gender = null,
-        ?string $country = null
+        ?string $filters = null
     ): SearchByFeatureResponse {
         return SearchByFeatureResponse::fromArray(
-            $this->request(self::SEARCH_BY_FEATURE, new SearchByFeatureRequest($featureId, $label, $gender, $country))
+            $this->request(self::SEARCH_BY_FEATURE, new SearchByFeatureRequest($featureId, $label, $gender, $filters))
         );
     }
 }

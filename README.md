@@ -63,14 +63,14 @@ To search products with previously found feature use `searchByFeature`
 ```php
 use Answear\WideEyesBundle\Service\SearchByImageClient;
 
-$detectAndFeturesResponse = $searchByImageClient->searchByFeature('featureId', 'label', 'gender', 'country');
+$detectAndFeturesResponse = $searchByImageClient->searchByFeature('featureId', 'label', 'gender', 'filters');
 ```
 
 Your agruments are:
  * `featureId` - featureId you got form DetectAndFeatures
  * `label` - label you got form DetectAndFeatures
  * `gender` - gender you got from DetectAndFeatures (optional)
- * `country` - e.g. pl, sk, cz - if you want to get products available in one of your stocks (optional)
+ * `filters` - result filters (optional)
 
 In result you're getting `SearchByFeatureResponse` that contains all found products uids meeting your criteria.
 
