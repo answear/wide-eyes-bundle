@@ -16,15 +16,17 @@ class SearchByFeatureResponseTest extends TestCase
     public function correctlyReturnsUids(): void
     {
         $responseData = [
-            'products' => [
-                [
-                    'uid' => 'uid1',
-                ],
-                [
-                    'uid' => 'uid2',
-                ],
-                [
-                    'uid' => 'uid3',
+            [
+                'products' => [
+                    [
+                        'uid' => 'uid1',
+                    ],
+                    [
+                        'uid' => 'uid2',
+                    ],
+                    [
+                        'uid' => 'uid3',
+                    ],
                 ],
             ],
         ];
@@ -47,15 +49,17 @@ class SearchByFeatureResponseTest extends TestCase
     public function malformedResponseWithoutUidInOneItem(): void
     {
         $responseData = [
-            'products' => [
-                [
-                    'uid' => 'uid1',
-                ],
-                [
-                    'id' => 'uid2',
-                ],
-                [
-                    'uid' => 'uid3',
+            [
+                'products' => [
+                    [
+                        'uid' => 'uid1',
+                    ],
+                    [
+                        'id' => 'uid2',
+                    ],
+                    [
+                        'uid' => 'uid3',
+                    ],
                 ],
             ],
         ];
@@ -70,12 +74,14 @@ class SearchByFeatureResponseTest extends TestCase
     public function malformedResponseWithoutUid(): void
     {
         $responseData = [
-            'products' => [
-                [
-                    'result' => 'uid1',
-                ],
-                [
-                    'result' => 'uid2',
+            [
+                'products' => [
+                    [
+                        'result' => 'uid1',
+                    ],
+                    [
+                        'result' => 'uid2',
+                    ],
                 ],
             ],
         ];
@@ -91,13 +97,15 @@ class SearchByFeatureResponseTest extends TestCase
     {
         $responseData = [
             [
-                'uid' => 'uid1',
-            ],
-            [
-                'uid' => 'uid2',
-            ],
-            [
-                'uid' => 'uid3',
+                [
+                    'uid' => 'uid1',
+                ],
+                [
+                    'uid' => 'uid2',
+                ],
+                [
+                    'uid' => 'uid3',
+                ],
             ],
         ];
 

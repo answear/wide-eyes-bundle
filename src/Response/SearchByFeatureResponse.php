@@ -20,7 +20,7 @@ class SearchByFeatureResponse
     public static function fromArray(array $response): SearchByFeatureResponse
     {
         try {
-            $products = $response['products'];
+            $products = $response[0]['products'];
             $responseUids = array_map(
                 static function ($item) {
                     Assert::keyExists($item, 'uid');

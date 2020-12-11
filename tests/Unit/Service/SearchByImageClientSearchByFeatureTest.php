@@ -130,17 +130,19 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
     {
         $result = [
             'results' => [
-                'products' => [
-                    [
-                        'uid' => $uid1,
-                        'otherData' => 'some data',
-                    ],
-                    [
-                        'uid' => $uid2,
-                    ],
-                    [
-                        'uid' => $uid3,
-                        'category' => 'category',
+                [
+                    'products' => [
+                        [
+                            'uid' => $uid1,
+                            'otherData' => 'some data',
+                        ],
+                        [
+                            'uid' => $uid2,
+                        ],
+                        [
+                            'uid' => $uid3,
+                            'category' => 'category',
+                        ],
                     ],
                 ],
             ],
@@ -154,9 +156,11 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
         return \json_encode(
             [
                 'results' => [
-                    'items' => [
-                        [
-                            'uid' => 'uid',
+                    [
+                        'items' => [
+                            [
+                                'uid' => 'uid',
+                            ],
                         ],
                     ],
                 ],
