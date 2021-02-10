@@ -20,6 +20,10 @@ class SearchByFeatureResponse
     public static function fromArray(array $response): SearchByFeatureResponse
     {
         try {
+            if (!isset($response[0]['products'])) {
+                throw new \InvalidArgumentException('Invalid response. Products not found');
+            }
+
             $products = $response[0]['products'];
             $responseUids = array_map(
                 static function ($item) {
