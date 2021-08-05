@@ -12,6 +12,7 @@ use GuzzleHttp\Psr7\Response;
 class SimilarClientTest extends AbstractClientTest
 {
     private const UID = 'uid1';
+    private const SECOND_UID = 'uid5';
     private const COUNTRY_CODE = 'code';
 
     private SimilarClient $client;
@@ -102,6 +103,64 @@ class SimilarClientTest extends AbstractClientTest
         $this->expectException(ServiceUnavailable::class);
 
         $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
+    }
+
+    /**
+     * @test
+     */
+    public function successfulManySimilarRequest(): void
+    {
+        $resultUids = ['uid2', 'uid3', 'uid4'];
+        $resultUids2 = ['uid2', 'uid3'];
+
+        $this->guzzleHandler->append(
+            new Response(200, [], $this->prepareProperResponse($resultUids)),
+            new Response(200, [], $this->prepareProperResponse($resultUids2))
+        );
+
+        $result = $this->client->getSimilarForMany([self::UID, self::SECOND_UID], self::COUNTRY_CODE);
+
+        self::assertSame($resultUids, $result[self::UID]->getUids());
+        self::assertSame($resultUids2, $result[self::SECOND_UID]->getUids());
+        self::assertCount(2, $this->guzzleHistory);
+    }
+
+    /**
+     * @test
+     */
+    public function successfulManySimilarRequestWithOne500(): void
+    {
+        $resultUids = ['uid2', 'uid3', 'uid4'];
+
+        $this->guzzleHandler->append(
+            new Response(200, [], $this->prepareProperResponse($resultUids)),
+            new Response(500, [], '{}')
+        );
+
+        $result = $this->client->getSimilarForMany([self::UID, self::SECOND_UID], self::COUNTRY_CODE);
+
+        self::assertSame($resultUids, $result[self::UID]->getUids());
+        self::assertArrayNotHasKey(self::SECOND_UID, $result);
+        self::assertCount(2, $this->guzzleHistory);
+    }
+
+    /**
+     * @test
+     */
+    public function successfulManySimilarRequestWithOneErrorResult(): void
+    {
+        $resultUids = ['uid2', 'uid3', 'uid4'];
+
+        $this->guzzleHandler->append(
+            new Response(200, [], $this->prepareProperResponse($resultUids)),
+            new Response(200, [], '{"success":true}')
+        );
+
+        $result = $this->client->getSimilarForMany([self::UID, self::SECOND_UID], self::COUNTRY_CODE);
+
+        self::assertSame($resultUids, $result[self::UID]->getUids());
+        self::assertSame([], $result[self::SECOND_UID]->getUids());
+        self::assertCount(2, $this->guzzleHistory);
     }
 
     private function prepareProperResponse(array $resultUids): string
