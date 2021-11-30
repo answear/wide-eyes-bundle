@@ -19,6 +19,10 @@ class SearchByFeatureResponse
 
     public static function fromArray(array $response): SearchByFeatureResponse
     {
+        if (!isset($response[0]['products']) || !is_array($response[0]['products'])) {
+            throw new MalformedResponse('Empty result', $response);
+        }
+
         try {
             $products = $response[0]['products'];
             $responseUids = array_map(

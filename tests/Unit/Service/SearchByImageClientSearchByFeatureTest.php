@@ -83,7 +83,7 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
         $this->guzzleHandler->append(new Response(200, [], $this->prepareNotProperResponse()));
 
         $this->expectException(MalformedResponse::class);
-        $this->expectExceptionMessage('Undefined index: products');
+        $this->expectExceptionMessage('Empty result');
 
         $this->client->searchByFeature(self::FEATURE_ID, self::LABEL);
     }
