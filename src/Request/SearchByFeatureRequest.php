@@ -10,13 +10,15 @@ class SearchByFeatureRequest implements Request
     private string $label;
     private ?string $gender;
     private ?string $filters;
+    private ?int $maxNumResults;
 
-    public function __construct(string $featureId, string $label, ?string $gender = null, ?string $filters = null)
+    public function __construct(string $featureId, string $label, ?string $gender = null, ?string $filters = null, ?int $maxNumResults = null)
     {
         $this->featureId = $featureId;
         $this->label = $label;
         $this->gender = $gender;
         $this->filters = $filters;
+        $this->maxNumResults = $maxNumResults;
     }
 
     public function toJson(): string
@@ -28,6 +30,7 @@ class SearchByFeatureRequest implements Request
                     'label' => $this->label,
                     'gender' => $this->gender,
                     'filters' => $this->filters,
+                    'maxNumResults' => $this->maxNumResults,
                 ]
             )
         );

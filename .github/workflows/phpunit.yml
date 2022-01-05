@@ -45,4 +45,4 @@ jobs:
               if: "${{ matrix.deps == 'low' }}"
 
             - name: "Run PHPUnit"
-              run: "vendor/bin/phpunit"
+              run: "SYMFONY_DEPRECATIONS_HELPER=weak vendor/bin/phpunit"
