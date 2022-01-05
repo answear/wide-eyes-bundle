@@ -34,4 +34,17 @@ class SearchByFeatureRequestTest extends TestCase
             $request->toJson()
         );
     }
+
+    /**
+     * @test
+     */
+    public function requestWithMaxNumResultsIsCorrect(): void
+    {
+        $request = new SearchByFeatureRequest('featureId', 'label', null, null, 30);
+
+        self::assertSame(
+            '{"featureId":"featureId","label":"label","maxNumResults":30}',
+            $request->toJson()
+        );
+    }
 }
