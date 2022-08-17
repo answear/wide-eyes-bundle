@@ -114,7 +114,7 @@ class DetectAndFeaturesResponseTest extends TestCase
         ];
 
         $this->expectException(MalformedResponse::class);
-        $this->expectExceptionMessage('Undefined index: y1');
+        $this->expectErrorMessageMatches('#^Undefined#');
         DetectAndFeaturesResponse::fromArray($responseData);
     }
 

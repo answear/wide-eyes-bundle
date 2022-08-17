@@ -97,7 +97,7 @@ class DetectionTest extends TestCase
         ];
 
         $this->expectError();
-        $this->expectErrorMessageMatches('#^Undefined index#');
+        $this->expectErrorMessageMatches('#^Undefined#');
 
         Detection::fromArray($detection);
     }

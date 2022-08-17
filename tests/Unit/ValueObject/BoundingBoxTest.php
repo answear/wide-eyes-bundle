@@ -40,7 +40,7 @@ class BoundingBoxTest extends TestCase
         ];
 
         $this->expectError();
-        $this->expectErrorMessageMatches('#^Undefined index#');
+        $this->expectErrorMessageMatches('#^Undefined#');
 
         BoundingBox::fromArray($bbox);
     }
