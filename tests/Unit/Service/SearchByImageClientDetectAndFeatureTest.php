@@ -63,7 +63,7 @@ class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
         $this->guzzleHandler->append(new Response(200, [], $this->prepareNotProperResponse()));
 
         $this->expectException(MalformedResponse::class);
-        $this->expectExceptionMessage('Undefined index: featureId');
+        $this->expectErrorMessageMatches('#^Undefined#');
 
         $this->client->detectAndFeatures(self::IMAGE_PATH);
     }

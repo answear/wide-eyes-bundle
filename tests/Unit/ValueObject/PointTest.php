@@ -35,7 +35,7 @@ class PointTest extends TestCase
         ];
 
         $this->expectError();
-        $this->expectErrorMessageMatches('#^Undefined index#');
+        $this->expectErrorMessageMatches('#^Undefined#');
 
         Point::fromArray($point);
     }
