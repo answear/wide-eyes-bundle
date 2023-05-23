@@ -26,10 +26,10 @@ class SimilarClient extends AbstractClient
         );
     }
 
-    public function getSimilar(string $uid, string $countryCode): GetSimilarResponse
+    public function getSimilar(string $uid, string $countryCode, ?int $maxNumResults = null): GetSimilarResponse
     {
         return GetSimilarResponse::fromArray(
-            $this->request(self::SEARCH_BY_ID_ENDPOINT, new GetSimilarRequest($uid, $countryCode)),
+            $this->request(self::SEARCH_BY_ID_ENDPOINT, new GetSimilarRequest($uid, $countryCode, $maxNumResults)),
             $uid
         );
     }
@@ -39,11 +39,11 @@ class SimilarClient extends AbstractClient
      *
      * @return array<string, GetSimilarResponse> // index by uids
      */
-    public function getSimilarForMany(array $uids, string $countryCode): array
+    public function getSimilarForMany(array $uids, string $countryCode, ?int $maxNumResults = null): array
     {
         $requests = [];
         foreach ($uids as $uid) {
-            $requests[$uid] = new GetSimilarRequest($uid, $countryCode);
+            $requests[$uid] = new GetSimilarRequest($uid, $countryCode, $maxNumResults);
         }
 
         $results = $this->manyRequests(self::SEARCH_BY_ID_ENDPOINT, $requests);

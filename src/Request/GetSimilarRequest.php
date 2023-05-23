@@ -8,20 +8,26 @@ class GetSimilarRequest implements Request
 {
     private string $uid;
     private string $country;
+    private ?int $maxNumResults;
 
-    public function __construct(string $uid, string $country)
+    public function __construct(string $uid, string $country, ?int $maxNumResults = null)
     {
         $this->uid = $uid;
         $this->country = $country;
+        $this->maxNumResults = $maxNumResults;
     }
 
     public function toJson(): string
     {
-        return json_encode(
-            [
-                'uid' => $this->uid,
-                'country' => $this->country,
-            ]
-        );
+        $resultArray = [
+            'uid' => $this->uid,
+            'country' => $this->country
+        ];
+
+        if (null !== $this->maxNumResults) {
+            $resultArray['maxNumResults'] = $this->maxNumResults;
+        }
+
+        return json_encode($resultArray);
     }
 }

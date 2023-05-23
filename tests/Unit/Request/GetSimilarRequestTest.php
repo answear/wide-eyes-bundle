@@ -21,4 +21,17 @@ class GetSimilarRequestTest extends TestCase
             $request->toJson()
         );
     }
+
+    /**
+     * @test
+     */
+    public function requestWithMaxNumResultsIsCorrect(): void
+    {
+        $request = new GetSimilarRequest('uid', 'country', 5);
+
+        self::assertSame(
+            '{"uid":"uid","country":"country","maxNumResults":5}',
+            $request->toJson()
+        );
+    }
 }
