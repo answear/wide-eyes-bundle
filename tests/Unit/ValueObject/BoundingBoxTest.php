@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Answear\WideEyesBundle\Tests\Unit\ValueObject;
 
 use Answear\WideEyesBundle\ValueObject\BoundingBox;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class BoundingBoxTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctlyCreatesPointFromArray(): void
     {
         $bbox = [
@@ -27,9 +26,7 @@ class BoundingBoxTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsErrorWhenCreatingFromArrayNotFindProperties(): void
     {
         $bbox = [
@@ -39,8 +36,7 @@ class BoundingBoxTest extends TestCase
             'y2' => 40,
         ];
 
-        $this->expectError();
-        $this->expectErrorMessageMatches('#^Undefined#');
+        $this->expectExceptionMessage('Expected a value other than null.');
 
         BoundingBox::fromArray($bbox);
     }

@@ -4,21 +4,15 @@ declare(strict_types=1);
 
 namespace Answear\WideEyesBundle\Request;
 
-class SearchByFeatureRequest implements Request
+readonly class SearchByFeatureRequest implements Request
 {
-    private string $featureId;
-    private string $label;
-    private ?string $gender;
-    private ?string $filters;
-    private ?int $maxNumResults;
-
-    public function __construct(string $featureId, string $label, ?string $gender = null, ?string $filters = null, ?int $maxNumResults = null)
-    {
-        $this->featureId = $featureId;
-        $this->label = $label;
-        $this->gender = $gender;
-        $this->filters = $filters;
-        $this->maxNumResults = $maxNumResults;
+    public function __construct(
+        private string $featureId,
+        private string $label,
+        private ?string $gender = null,
+        private ?string $filters = null,
+        private ?int $maxNumResults = null,
+    ) {
     }
 
     public function toJson(): string
@@ -32,7 +26,8 @@ class SearchByFeatureRequest implements Request
                     'filters' => $this->filters,
                     'maxNumResults' => $this->maxNumResults,
                 ]
-            )
+            ),
+            JSON_THROW_ON_ERROR
         );
     }
 }

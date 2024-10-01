@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Answear\WideEyesBundle\Tests\Unit\Request;
 
 use Answear\WideEyesBundle\Request\SearchByFeatureRequest;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class SearchByFeatureRequestTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function requestWithoutGenderAndCountryIsCorrect(): void
     {
         $request = new SearchByFeatureRequest('featureId', 'label');
@@ -22,9 +21,7 @@ class SearchByFeatureRequestTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function requestWithGenderAndCountryIsCorrect(): void
     {
         $request = new SearchByFeatureRequest('featureId', 'label', 'female', 'pl.inStock == true');
@@ -35,9 +32,7 @@ class SearchByFeatureRequestTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function requestWithMaxNumResultsIsCorrect(): void
     {
         $request = new SearchByFeatureRequest('featureId', 'label', null, null, 30);

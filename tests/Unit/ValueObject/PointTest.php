@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Answear\WideEyesBundle\Tests\Unit\ValueObject;
 
 use Answear\WideEyesBundle\ValueObject\Point;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class PointTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctlyCreatesPointFromArray(): void
     {
         $point = [
@@ -25,17 +24,14 @@ class PointTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsErrorWhenCreatingFromArrayNotFindProperties(): void
     {
         $point = [
             'x' => 20,
         ];
 
-        $this->expectError();
-        $this->expectErrorMessageMatches('#^Undefined#');
+        $this->expectExceptionMessage('Expected a value other than null.');
 
         Point::fromArray($point);
     }

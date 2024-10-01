@@ -6,13 +6,12 @@ namespace Answear\WideEyesBundle\Tests\Unit\Response;
 
 use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Response\GetSimilarResponse;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class GetSimilarResponseTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctlyReturnsUids(): void
     {
         $responseData = [
@@ -34,13 +33,11 @@ class GetSimilarResponseTest extends TestCase
                 'uid2',
                 'uid3',
             ],
-            $response->getUids()
+            $response->uids
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function malformedResponseWithoutUid(): void
     {
         $responseData = [

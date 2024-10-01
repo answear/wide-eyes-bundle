@@ -8,8 +8,9 @@ use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Exception\ServiceUnavailable;
 use Answear\WideEyesBundle\Service\SearchByImageClient;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\Test;
 
-class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
+class SearchByImageClientDetectAndFeatureTest extends AbstractClient
 {
     private const IMAGE_PATH = 'path';
 
@@ -22,9 +23,7 @@ class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
         $this->client = new SearchByImageClient($this->configProvider, $this->setupGuzzle());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function successfulDetectAndFeatures(): void
     {
         $x1 = 1.0;
@@ -46,31 +45,27 @@ class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
 
         $result = $this->client->detectAndFeatures(self::IMAGE_PATH);
 
-        $detections = $result->getDetections();
+        $detections = $result->detections;
         self::assertCount(1, $detections);
-        self::assertSame($label, $detections[0]->getLabel());
-        self::assertSame($featureId, $detections[0]->getFeatureId());
-        self::assertSame($x1, $detections[0]->getBox()->getX1());
-        self::assertSame($x, $detections[0]->getPoint()->getX());
+        self::assertSame($label, $detections[0]->label);
+        self::assertSame($featureId, $detections[0]->featureId);
+        self::assertSame($x1, $detections[0]->box->x1);
+        self::assertSame($x, $detections[0]->point->x);
         self::assertCount(1, $this->guzzleHistory);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithWrongPropertiesInDetections(): void
     {
         $this->guzzleHandler->append(new Response(200, [], $this->prepareNotProperResponse()));
 
         $this->expectException(MalformedResponse::class);
-        $this->expectErrorMessageMatches('#^Undefined#');
+        $this->expectExceptionMessage('Expected a value other than null.');
 
         $this->client->detectAndFeatures(self::IMAGE_PATH);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutResult(): void
     {
         $this->guzzleHandler->append(new Response(200, [], '{"success":true}'));
@@ -81,9 +76,7 @@ class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
         $this->client->detectAndFeatures(self::IMAGE_PATH);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutArray(): void
     {
         $this->guzzleHandler->append(new Response(200, [], '"result":[]'));
@@ -94,9 +87,7 @@ class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
         $this->client->detectAndFeatures(self::IMAGE_PATH);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function serviceUnavailable(): void
     {
         $this->guzzleHandler->append(new Response(500, [], '{}'));
@@ -138,7 +129,8 @@ class SearchByImageClientDetectAndFeatureTest extends AbstractClientTest
                         ],
                     ],
                 ],
-            ]
+            ],
+            JSON_THROW_ON_ERROR
         );
     }
 }

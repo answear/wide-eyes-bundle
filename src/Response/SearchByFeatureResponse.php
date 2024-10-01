@@ -7,14 +7,14 @@ namespace Answear\WideEyesBundle\Response;
 use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Webmozart\Assert\Assert;
 
-class SearchByFeatureResponse
+readonly class SearchByFeatureResponse
 {
-    private array $uids;
-
-    private function __construct(array $uids)
+    /**
+     * @param string[] $uids
+     */
+    private function __construct(public array $uids)
     {
         Assert::allString($uids);
-        $this->uids = $uids;
     }
 
     public static function fromArray(array $response): SearchByFeatureResponse
@@ -38,10 +38,5 @@ class SearchByFeatureResponse
         } catch (\Throwable $e) {
             throw new MalformedResponse($e->getMessage(), $response, $e);
         }
-    }
-
-    public function getUids(): array
-    {
-        return $this->uids;
     }
 }

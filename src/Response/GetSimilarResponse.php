@@ -7,14 +7,14 @@ namespace Answear\WideEyesBundle\Response;
 use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Webmozart\Assert\Assert;
 
-class GetSimilarResponse
+readonly class GetSimilarResponse
 {
-    private array $uids;
-
-    private function __construct(array $uids)
+    /**
+     * @param string[] $uids
+     */
+    private function __construct(public array $uids)
     {
         Assert::allString($uids);
-        $this->uids = $uids;
     }
 
     public static function fromArray(array $response, string $originalUid): GetSimilarResponse
@@ -33,17 +33,12 @@ class GetSimilarResponse
                 array_values(
                     array_filter(
                         $responseUids,
-                        static fn ($item) => $item !== $originalUid,
+                        static fn($item) => $item !== $originalUid,
                     )
                 )
             );
         } catch (\Throwable $e) {
             throw new MalformedResponse($e->getMessage(), $response, $e);
         }
-    }
-
-    public function getUids(): array
-    {
-        return $this->uids;
     }
 }

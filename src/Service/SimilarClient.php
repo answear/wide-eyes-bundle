@@ -19,8 +19,8 @@ class SimilarClient extends AbstractClient
             $configProvider,
             $client ?? new Client(
                 [
-                    'base_uri' => $configProvider->getSimilarApiUrl(),
-                    'timeout' => $configProvider->getSimilarRequestTimeout(),
+                    'base_uri' => $configProvider->similarApiUrl,
+                    'timeout' => $configProvider->similarRequestTimeout,
                 ]
             )
         );

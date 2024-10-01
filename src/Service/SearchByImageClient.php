@@ -22,8 +22,8 @@ class SearchByImageClient extends AbstractClient
             $configProvider,
             $client ?? new Client(
                 [
-                    'base_uri' => $configProvider->getSearchByImageApiUrl(),
-                    'timeout' => $configProvider->getSearchByImageRequestTimeout(),
+                    'base_uri' => $configProvider->searchByImageApiUrl,
+                    'timeout' => $configProvider->searchByImageRequestTimeout,
                 ]
             )
         );
@@ -41,7 +41,7 @@ class SearchByImageClient extends AbstractClient
         string $label,
         ?string $gender = null,
         ?string $filters = null,
-        ?int $maxNumResults = null
+        ?int $maxNumResults = null,
     ): SearchByFeatureResponse {
         return SearchByFeatureResponse::fromArray(
             $this->request(self::SEARCH_BY_FEATURE, new SearchByFeatureRequest($featureId, $label, $gender, $filters, $maxNumResults))

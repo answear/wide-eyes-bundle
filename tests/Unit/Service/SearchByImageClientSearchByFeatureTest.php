@@ -8,8 +8,10 @@ use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Exception\ServiceUnavailable;
 use Answear\WideEyesBundle\Service\SearchByImageClient;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
-class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
+class SearchByImageClientSearchByFeatureTest extends AbstractClient
 {
     private const FEATURE_ID = 'featureid==';
     private const LABEL = 'label';
@@ -25,15 +27,13 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
         $this->client = new SearchByImageClient($this->configProvider, $this->setupGuzzle());
     }
 
-    /**
-     * @dataProvider dataProvider
-     * @test
-     */
+    #[Test]
+    #[DataProvider('dataProvider')]
     public function successfulSearchByFeature(
         string $featureId,
         string $label,
         ?string $gender = null,
-        ?string $country = null
+        ?string $country = null,
     ): void {
         $uid1 = 'uid1';
         $uid2 = 'uid2';
@@ -43,11 +43,11 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
 
         $result = $this->client->searchByFeature($featureId, $label, $gender, $country);
 
-        self::assertSame([$uid1, $uid2, $uid3], $result->getUids());
+        self::assertSame([$uid1, $uid2, $uid3], $result->uids);
         self::assertCount(1, $this->guzzleHistory);
     }
 
-    public function dataProvider(): iterable
+    public static function dataProvider(): iterable
     {
         yield [
             self::FEATURE_ID,
@@ -75,9 +75,7 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutProducts(): void
     {
         $this->guzzleHandler->append(new Response(200, [], $this->prepareNotProperResponse()));
@@ -88,9 +86,7 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
         $this->client->searchByFeature(self::FEATURE_ID, self::LABEL);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutResult(): void
     {
         $this->guzzleHandler->append(new Response(200, [], '{"success":true}'));
@@ -101,9 +97,7 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
         $this->client->searchByFeature(self::FEATURE_ID, self::LABEL);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutArray(): void
     {
         $this->guzzleHandler->append(new Response(200, [], '"result":[]'));
@@ -114,9 +108,7 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
         $this->client->searchByFeature(self::FEATURE_ID, self::LABEL);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function serviceUnavailable(): void
     {
         $this->guzzleHandler->append(new Response(500, [], '{}'));
@@ -164,7 +156,8 @@ class SearchByImageClientSearchByFeatureTest extends AbstractClientTest
                         ],
                     ],
                 ],
-            ]
+            ],
+            JSON_THROW_ON_ERROR
         );
     }
 }
