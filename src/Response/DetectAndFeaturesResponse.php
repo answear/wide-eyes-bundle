@@ -8,17 +8,14 @@ use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\ValueObject\Detection;
 use Webmozart\Assert\Assert;
 
-class DetectAndFeaturesResponse
+readonly class DetectAndFeaturesResponse
 {
     /**
-     * @var Detection[]
+     * @param Detection[] $detections
      */
-    private array $detections;
-
-    private function __construct(array $detections)
+    private function __construct(public array $detections)
     {
         Assert::allIsInstanceOf($detections, Detection::class);
-        $this->detections = $detections;
     }
 
     public static function fromArray(array $response): DetectAndFeaturesResponse
@@ -34,13 +31,8 @@ class DetectAndFeaturesResponse
                     $response['detections'],
                 )
             );
-        } catch (\Throwable $e) {
-            throw new MalformedResponse($e->getMessage(), $response, $e);
+        } catch (\Throwable $throwable) {
+            throw new MalformedResponse($throwable->getMessage(), $response, $throwable);
         }
-    }
-
-    public function getDetections(): array
-    {
-        return $this->detections;
     }
 }

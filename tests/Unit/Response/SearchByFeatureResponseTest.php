@@ -6,13 +6,12 @@ namespace Answear\WideEyesBundle\Tests\Unit\Response;
 
 use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Response\SearchByFeatureResponse;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class SearchByFeatureResponseTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctlyReturnsUids(): void
     {
         $responseData = [
@@ -39,13 +38,11 @@ class SearchByFeatureResponseTest extends TestCase
                 'uid2',
                 'uid3',
             ],
-            $response->getUids()
+            $response->uids
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function malformedResponseWithoutUidInOneItem(): void
     {
         $responseData = [
@@ -68,9 +65,7 @@ class SearchByFeatureResponseTest extends TestCase
         SearchByFeatureResponse::fromArray($responseData);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function malformedResponseWithoutUid(): void
     {
         $responseData = [
@@ -90,9 +85,7 @@ class SearchByFeatureResponseTest extends TestCase
         SearchByFeatureResponse::fromArray($responseData);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function malformedResponseWithoutProducts(): void
     {
         $responseData = [

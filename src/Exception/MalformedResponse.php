@@ -6,20 +6,11 @@ namespace Answear\WideEyesBundle\Exception;
 
 class MalformedResponse extends \RuntimeException
 {
-    /**
-     * @var mixed
-     */
-    private $response;
-
-    public function __construct($message, $response, ?\Throwable $previous = null)
-    {
+    public function __construct(
+        $message,
+        public readonly mixed $response,
+        ?\Throwable $previous = null,
+    ) {
         parent::__construct($message, 0, $previous);
-
-        $this->response = $response;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
     }
 }

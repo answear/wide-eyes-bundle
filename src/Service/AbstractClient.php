@@ -15,19 +15,16 @@ use Webmozart\Assert\Assert;
 
 abstract class AbstractClient
 {
-    protected ConfigProvider $configProvider;
-    protected ClientInterface $guzzle;
-
-    public function __construct(ConfigProvider $configProvider, ClientInterface $client)
-    {
-        $this->configProvider = $configProvider;
-        $this->guzzle = $client;
+    public function __construct(
+        protected ConfigProvider $configProvider,
+        protected ClientInterface $client,
+    ) {
     }
 
     protected function request(string $endpoint, Request $request): array
     {
         try {
-            $response = $this->guzzle->request(
+            $response = $this->client->request(
                 'POST',
                 $endpoint,
                 [
@@ -51,7 +48,7 @@ abstract class AbstractClient
         $promises = [];
 
         foreach ($requests as $key => $request) {
-            $promises[$key] = $this->guzzle->requestAsync(
+            $promises[$key] = $this->client->requestAsync(
                 'POST',
                 $endpoint,
                 [
@@ -61,7 +58,7 @@ abstract class AbstractClient
             );
         }
 
-        $promisesResults = Promise\settle($promises)->wait();
+        $promisesResults = Promise\Utils::settle($promises)->wait();
 
         $processedResults = [];
         foreach ($promisesResults as $key => $result) {

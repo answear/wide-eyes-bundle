@@ -8,8 +8,9 @@ use Answear\WideEyesBundle\Exception\MalformedResponse;
 use Answear\WideEyesBundle\Exception\ServiceUnavailable;
 use Answear\WideEyesBundle\Service\SimilarClient;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\Test;
 
-class SimilarClientTest extends AbstractClientTest
+class SimilarClientTest extends AbstractClient
 {
     private const UID = 'uid1';
     private const SECOND_UID = 'uid5';
@@ -24,9 +25,7 @@ class SimilarClientTest extends AbstractClientTest
         $this->client = new SimilarClient($this->configProvider, $this->setupGuzzle());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function successfulSimilarRequest(): void
     {
         $resultUids = ['uid2', 'uid3', 'uid4'];
@@ -35,13 +34,11 @@ class SimilarClientTest extends AbstractClientTest
 
         $result = $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
 
-        self::assertSame($resultUids, $result->getUids());
+        self::assertSame($resultUids, $result->uids);
         self::assertCount(1, $this->guzzleHistory);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function successfulEmptySimilarRequest(): void
     {
         $resultUids = [];
@@ -50,13 +47,11 @@ class SimilarClientTest extends AbstractClientTest
 
         $result = $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
 
-        self::assertSame($resultUids, $result->getUids());
+        self::assertSame($resultUids, $result->uids);
         self::assertCount(1, $this->guzzleHistory);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutUids(): void
     {
         $this->guzzleHandler->append(new Response(200, [], $this->prepareResponseWithoutUids()));
@@ -67,9 +62,7 @@ class SimilarClientTest extends AbstractClientTest
         $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutResult(): void
     {
         $this->guzzleHandler->append(new Response(200, [], '{"success":true}'));
@@ -80,9 +73,7 @@ class SimilarClientTest extends AbstractClientTest
         $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function responseWithoutArray(): void
     {
         $this->guzzleHandler->append(new Response(200, [], '"result":[]'));
@@ -93,9 +84,7 @@ class SimilarClientTest extends AbstractClientTest
         $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function serviceUnavailable(): void
     {
         $this->guzzleHandler->append(new Response(500, [], '{}'));
@@ -105,9 +94,7 @@ class SimilarClientTest extends AbstractClientTest
         $this->client->getSimilar(self::UID, self::COUNTRY_CODE);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function successfulManySimilarRequest(): void
     {
         $resultUids = ['uid2', 'uid3', 'uid4'];
@@ -120,14 +107,12 @@ class SimilarClientTest extends AbstractClientTest
 
         $result = $this->client->getSimilarForMany([self::UID, self::SECOND_UID], self::COUNTRY_CODE);
 
-        self::assertSame($resultUids, $result[self::UID]->getUids());
-        self::assertSame($resultUids2, $result[self::SECOND_UID]->getUids());
+        self::assertSame($resultUids, $result[self::UID]->uids);
+        self::assertSame($resultUids2, $result[self::SECOND_UID]->uids);
         self::assertCount(2, $this->guzzleHistory);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function successfulManySimilarRequestWithOne500(): void
     {
         $resultUids = ['uid2', 'uid3', 'uid4'];
@@ -139,14 +124,12 @@ class SimilarClientTest extends AbstractClientTest
 
         $result = $this->client->getSimilarForMany([self::UID, self::SECOND_UID], self::COUNTRY_CODE);
 
-        self::assertSame($resultUids, $result[self::UID]->getUids());
+        self::assertSame($resultUids, $result[self::UID]->uids);
         self::assertArrayNotHasKey(self::SECOND_UID, $result);
         self::assertCount(2, $this->guzzleHistory);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function successfulManySimilarRequestWithOneErrorResult(): void
     {
         $resultUids = ['uid2', 'uid3', 'uid4'];
@@ -158,8 +141,8 @@ class SimilarClientTest extends AbstractClientTest
 
         $result = $this->client->getSimilarForMany([self::UID, self::SECOND_UID], self::COUNTRY_CODE);
 
-        self::assertSame($resultUids, $result[self::UID]->getUids());
-        self::assertSame([], $result[self::SECOND_UID]->getUids());
+        self::assertSame($resultUids, $result[self::UID]->uids);
+        self::assertSame([], $result[self::SECOND_UID]->uids);
         self::assertCount(2, $this->guzzleHistory);
     }
 
@@ -191,7 +174,8 @@ class SimilarClientTest extends AbstractClientTest
                         'item3',
                     ],
                 ],
-            ]
+            ],
+            JSON_THROW_ON_ERROR
         );
     }
 }

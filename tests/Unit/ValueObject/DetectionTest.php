@@ -7,13 +7,12 @@ namespace Answear\WideEyesBundle\Tests\Unit\ValueObject;
 use Answear\WideEyesBundle\ValueObject\BoundingBox;
 use Answear\WideEyesBundle\ValueObject\Detection;
 use Answear\WideEyesBundle\ValueObject\Point;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class DetectionTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctlyCreatesDetectionFromArray(): void
     {
         $detection = [
@@ -44,9 +43,7 @@ class DetectionTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function correctlyCreatesDetectionFromArrayWithoutGender(): void
     {
         $detection = [
@@ -76,9 +73,7 @@ class DetectionTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsErrorWhenCreatingFromArrayNotFindProperties(): void
     {
         $detection = [
@@ -96,8 +91,7 @@ class DetectionTest extends TestCase
             ],
         ];
 
-        $this->expectError();
-        $this->expectErrorMessageMatches('#^Undefined#');
+        $this->expectExceptionMessage('Expected a value other than null.');
 
         Detection::fromArray($detection);
     }

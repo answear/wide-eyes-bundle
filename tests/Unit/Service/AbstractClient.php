@@ -11,7 +11,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractClientTest extends TestCase
+abstract class AbstractClient extends TestCase
 {
     /**
      * @see http://docs.guzzlephp.org/en/stable/testing.html#history-middleware

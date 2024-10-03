@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Answear\WideEyesBundle\Tests\Unit\Service;
 
 use Answear\WideEyesBundle\Service\ConfigProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class ConfigProviderTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function returnsCorrectRequestHeaders(): void
     {
         $configProvider = new ConfigProvider(

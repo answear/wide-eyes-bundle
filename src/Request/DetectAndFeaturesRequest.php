@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Answear\WideEyesBundle\Request;
 
-class DetectAndFeaturesRequest implements Request
+readonly class DetectAndFeaturesRequest implements Request
 {
-    private string $image;
-
-    public function __construct(string $image)
+    public function __construct(private string $image)
     {
-        $this->image = $image;
     }
 
     public function toJson(): string
@@ -18,7 +15,8 @@ class DetectAndFeaturesRequest implements Request
         return json_encode(
             [
                 'image' => $this->image,
-            ]
+            ],
+            JSON_THROW_ON_ERROR
         );
     }
 }

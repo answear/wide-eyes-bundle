@@ -9,13 +9,12 @@ use Answear\WideEyesBundle\Response\DetectAndFeaturesResponse;
 use Answear\WideEyesBundle\ValueObject\BoundingBox;
 use Answear\WideEyesBundle\ValueObject\Detection;
 use Answear\WideEyesBundle\ValueObject\Point;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class DetectAndFeaturesResponseTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function correctlyReturnsDetections(): void
     {
         $responseData = [
@@ -71,13 +70,11 @@ class DetectAndFeaturesResponseTest extends TestCase
                     new Point(60, 70)
                 ),
             ],
-            $response->getDetections()
+            $response->detections
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function malformedResponseWithNotCompleteDetections(): void
     {
         $responseData = [
@@ -114,13 +111,11 @@ class DetectAndFeaturesResponseTest extends TestCase
         ];
 
         $this->expectException(MalformedResponse::class);
-        $this->expectErrorMessageMatches('#^Undefined#');
+        $this->expectExceptionMessage('Expected a value other than null.');
         DetectAndFeaturesResponse::fromArray($responseData);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function malformedResponseWithoutDetections(): void
     {
         $responseData = [

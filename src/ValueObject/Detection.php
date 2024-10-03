@@ -6,21 +6,15 @@ namespace Answear\WideEyesBundle\ValueObject;
 
 use Webmozart\Assert\Assert;
 
-class Detection
+readonly class Detection
 {
-    private string $label;
-    private string $featureId;
-    private ?string $gender;
-    private BoundingBox $box;
-    private Point $point;
-
-    public function __construct(string $label, string $featureId, ?string $gender, BoundingBox $box, Point $point)
-    {
-        $this->label = $label;
-        $this->featureId = $featureId;
-        $this->box = $box;
-        $this->gender = $gender;
-        $this->point = $point;
+    public function __construct(
+        public string $label,
+        public string $featureId,
+        public ?string $gender,
+        public BoundingBox $box,
+        public Point $point,
+    ) {
     }
 
     public static function fromArray(array $detectionResult): Detection
@@ -37,30 +31,5 @@ class Detection
             BoundingBox::fromArray($detectionResult['bbox']),
             Point::fromArray($detectionResult['point'])
         );
-    }
-
-    public function getLabel(): string
-    {
-        return $this->label;
-    }
-
-    public function getFeatureId(): string
-    {
-        return $this->featureId;
-    }
-
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function getBox(): BoundingBox
-    {
-        return $this->box;
-    }
-
-    public function getPoint(): Point
-    {
-        return $this->point;
     }
 }
